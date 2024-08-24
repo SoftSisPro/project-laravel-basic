@@ -19,7 +19,7 @@ return new class extends Migration
                   ->onDelete('cascade');
             $table->string('title');
             $table->text('description');
-            $table->unsignedInteger('likes');
+            $table->unsignedInteger('likes')->default(0);
             $table->timestamps();
         });
     }
