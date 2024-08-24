@@ -10,6 +10,20 @@ use Illuminate\View\View;
 
 class IdeaController extends Controller
 {
+    private array $roules = [
+        'title' => 'required|string|max:100',
+        'description' => 'required|string|max:300',
+    ];
+
+    private array $errorMessages = [
+        'title.required' => 'El título es obligatorio',
+        'title.string' => 'El título debe ser un texto',
+        'title.max' => 'El título no debe superar los 100 caracteres',
+        'description.required' => 'La descripción es obligatoria',
+        'description.string' => 'La descripción debe ser un texto',
+        'description.max' => 'La descripción no debe superar los 300 caracteres',
+    ];
+
     public function index() : View
     {
         // $ideas = DB::table('ideas')->get(); una consulta normal no por eloqueent
@@ -25,10 +39,7 @@ class IdeaController extends Controller
     public function store(Request $request) : RedirectResponse
     {
         // dd($request->all()); # Mostrar variables en pantalla
-        $validated = $request->validate([
-            'title' => 'required|string|max:100',
-            'description' => 'required|string|max:300',
-        ]);
+        $validated = $request->validate($this->roules, $this->errorMessages);
 
         Idea::create([
             'user_id' => auth()->user()->id, # $request->user()->id
@@ -48,15 +59,13 @@ class IdeaController extends Controller
 
     public function update(Request $request, Idea $idea) : RedirectResponse
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:100',
-            'description' => 'required|string|max:300',
-        ]);
-
+        //- Validamos los datos
+        $validated = $request->validate($this->roules, $this->errorMessages);
+        //- Actualizamos la idea
         $idea->update($validated);
-
+        //- Mostramos un mensaje de éxito
         session()->flash('success', 'Idea actualizada correctamente');
-
+        //- Redireccionamos a la vista de ideas
         return redirect()->route('idea.index');
     }
 
