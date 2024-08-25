@@ -80,4 +80,17 @@ class IdeaController extends Controller
         session()->flash('success', 'Idea eliminada correctamente');
         return redirect()->route('idea.index');
     }
+
+    public function voteLikes(Request $request, Idea $idea) : RedirectResponse
+    {
+        //- toggle() agrega o quita un registro de la tabla pivote
+        $request->user()->ideasLiked()->toggle([$idea->id]);
+        //- Contamos los like
+        $like = $idea->users()->count();
+        //- Actualizamos el campo likes de la idea
+        $idea->update(['likes' => $like]);
+
+        //- Redireccionamos a la vista ver idea
+        return redirect()->route('idea.show', $idea);
+    }
 }
