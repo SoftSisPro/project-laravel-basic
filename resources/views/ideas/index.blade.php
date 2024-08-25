@@ -51,9 +51,12 @@
                                             <x-dropdown-link :href="route('idea.show', $idea)">
                                                 <i class="fa fa-eye fa-fw"></i> Ver
                                             </x-dropdown-link>
-                                            <x-dropdown-link :href="route('idea.edit', $idea)">
-                                                <i class="fa fa-pen fa-fw"></i> Editar
-                                            </x-dropdown-link>
+                                            @can('update', $idea)
+                                                <x-dropdown-link :href="route('idea.edit', $idea)">
+                                                    <i class="fa fa-pen fa-fw"></i> Editar
+                                                </x-dropdown-link>
+                                            @endcan
+                                            @can('delete', $idea)
                                             <form method="POST" action=" {{ route('idea.delete',$idea) }}">
                                                 @csrf
                                                 @method('delete')
@@ -61,6 +64,7 @@
                                                     <i class="fa fa-eraser fa-fw"></i> Eliminar
                                                 </x-dropdown-link>
                                             </form>
+                                            @endcan
                                         </x-slot>
                                     </x-dropdown>
                                 @endauth

@@ -54,11 +54,13 @@ class IdeaController extends Controller
 
     public function edit(Idea $idea) : View
     {
+        $this->authorize('update', $idea);
         return view('ideas.create_or_edit', ['idea' => $idea]);
     }
 
     public function update(Request $request, Idea $idea) : RedirectResponse
     {
+        $this->authorize('update', $idea);
         //- Validamos los datos
         $validated = $request->validate($this->roules, $this->errorMessages);
         //- Actualizamos la idea
@@ -76,6 +78,7 @@ class IdeaController extends Controller
 
     public function delete(Idea $idea) : RedirectResponse
     {
+        $this->authorize('delete', $idea);
         $idea->delete();
         session()->flash('success', 'Idea eliminada correctamente');
         return redirect()->route('idea.index');
