@@ -88,6 +88,8 @@ class IdeaController extends Controller
 
     public function voteLikes(Request $request, Idea $idea) : RedirectResponse
     {
+        //- Autorizamos la acción
+        $this->authorize('updateLikes', $idea);
         //- toggle() agrega o quita un registro de la tabla pivote
         $request->user()->ideasLiked()->toggle([$idea->id]);
         //- Contamos los like
