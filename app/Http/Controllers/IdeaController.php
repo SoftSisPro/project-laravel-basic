@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
+
 class IdeaController extends Controller
 {
     private array $roules = [
@@ -24,10 +25,11 @@ class IdeaController extends Controller
         'description.max' => 'La descripción no debe superar los 300 caracteres',
     ];
 
-    public function index() : View
+    public function index(Request $request) : View
     {
         // $ideas = DB::table('ideas')->get(); una consulta normal no por eloqueent
-        $ideas = Idea::get();
+        //$ideas = Idea::get(); # Consulta con eloquent sin filtros
+        $ideas = Idea::myIdeas($request->filtro)->theBest($request->filtro)->get();
         return view('ideas.index', ['ideas' => $ideas]);
     }
 
@@ -96,4 +98,6 @@ class IdeaController extends Controller
         //- Redireccionamos a la vista ver idea
         return redirect()->route('idea.show', $idea);
     }
+
+
 }

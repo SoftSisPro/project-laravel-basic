@@ -7,7 +7,10 @@
                     <a href="{{ route('idea.create') }}" class="px-4 py-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">
                         <i class="fas fa-plus-circle fa-fw"></i>&nbsp; Nueva Idea
                     </a>
-                    <a href="#" class="px-4 py-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <a href="{{ route('idea.index', ['filtro'=>'mis-ideas']) }}" class="px-4 py-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">
+                        <i class="fas fa-heart fa-fw"></i>&nbsp; Mis Ideas
+                    </a>
+                    <a href="{{ route('idea.index', ['filtro'=>'las-mejores']) }}" class="px-4 py-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">
                         <i class="fas fa-heart fa-fw"></i>&nbsp; Las Mejores
                     </a>
                 </div>
